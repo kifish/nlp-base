@@ -1,4 +1,4 @@
-import re
+import re,os
 import numpy as np
 import pandas as pd
 from viterbi import viterbi
@@ -87,7 +87,12 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 batch_size = 1024
 # history = model.fit(np.array(list(d['x'])), np.array(list(d['y'])).reshape((-1,maxlen,5)), batch_size=batch_size, nb_epoch=50)
 model.fit(np.array(list(d['x'])), np.array(list(d['y'])).reshape((-1,maxlen,5)), verbose = 2,batch_size=batch_size, nb_epoch=50)
-model.save('tmp/my_model.h5')
+
+if os.path.exists('./tmp/'):
+    model.save('tmp/my_model.h5')
+else:
+    os.mkdir('./tmp/')
+    model.save('tmp/my_model.h5')
 
 
 #最终模型可以输出每个字属于每种标签的概率
@@ -129,8 +134,8 @@ def cut_word(s):
 if __name__ == '__main__':
     print(cut_word('他来到了网易杭研大厦'))
     while True:
-        input_str = input()
-        print(cut_word(input_str))
+        s = input()
+        print(cut_word(s))
 
 
 '''

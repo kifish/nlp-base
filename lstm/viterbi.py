@@ -37,6 +37,7 @@ def viterbi(nodes,trans_prob = trans_prob):
             paths[list(nows.keys())[k]] = list(nows.values())[k]
     return list(paths.keys())[np.argmax(list(paths.values()))]
 
+
 if __name__ == '__main__':
     test_nodes = [{'s': 0.2, 'b': 0.2, 'm': 0.3, 'e': 0.3}, {'s': 0.1, 'b': 0.2, 'm': 0.3, 'e': 0.4}]
     print((viterbi(test_nodes)))
