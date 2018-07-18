@@ -1,11 +1,11 @@
 import re,os
 import numpy as np
 import pandas as pd
-from viterbi import viterbi
+from pkg.hmm.viterbi import viterbi
+# python3要使用绝对路径
 
 # backoff2005语料
-# s = open('../msr_train.txt',encoding='gbk').read()
-s = open('../msr_train.txt', encoding='utf8').read()
+s = open('../data/msr_train.txt', encoding='utf8').read()
 s = s.split('\r\n')
 
 def clean(s): #整理一下数据，有些不规范的地方
