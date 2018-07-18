@@ -15,7 +15,7 @@ __pycache__/
 #tmp file
 tmp/
 
-
+.tmp/
 
 #下面一行可忽略全部
 */.DS_Store
