@@ -1,0 +1,8 @@
+tensorflow                1.8.0                         0
+tensorflow-base           1.8.0            py36h1a1b453_0
+keras                     2.2.0                         0
+keras-applications        1.0.2                    py36_0
+keras-base                2.2.0                    py36_0
+keras-preprocessing       1.0.1                    py36_0
+numpy                     1.14.0           py36h4a99626_1
+scipy                     1.0.0            py36h1260518_0
