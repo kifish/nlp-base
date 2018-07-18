@@ -1,7 +1,7 @@
 import re
 import numpy as np
 import pandas as pd
-
+from viterbi import viterbi
 
 # backoff2005语料
 # s = open('../msr_train.txt',encoding='gbk').read()
@@ -71,6 +71,7 @@ def trans_one(x):
 
 d['y'] = d['label'].apply(trans_one)
 
+
 #设计模型
 word_size = 128
 from keras.layers import Dense, Embedding, LSTM, TimeDistributed, Input, Bidirectional
@@ -86,38 +87,11 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 batch_size = 1024
 # history = model.fit(np.array(list(d['x'])), np.array(list(d['y'])).reshape((-1,maxlen,5)), batch_size=batch_size, nb_epoch=50)
 model.fit(np.array(list(d['x'])), np.array(list(d['y'])).reshape((-1,maxlen,5)), verbose = 2,batch_size=batch_size, nb_epoch=50)
+model.save('tmp/my_model.h5')
+
 
 #最终模型可以输出每个字属于每种标签的概率
 #然后用维比特算法来dp
-
-#转移概率，单纯用了等概率
-zy = {'be':0.5, 
-      'bm':0.5, 
-      'eb':0.5, 
-      'es':0.5, 
-      'me':0.5, 
-      'mm':0.5,
-      'sb':0.5, 
-      'ss':0.5
-     }
-
-zy = {i:np.log(zy[i]) for i in zy.keys()}
-
-def viterbi(nodes):
-    paths = {'b':nodes[0]['b'], 's':nodes[0]['s']}
-    for l in range(1,len(nodes)):
-        paths_ = paths.copy()
-        paths = {}
-        for i in nodes[l].keys():
-            nows = {}
-            for j in paths_.keys():
-                if j[-1]+i in zy.keys():
-                    nows[j+i]= paths_[j]+nodes[l][i]+zy[j[-1]+i]
-            k = np.argmax(nows.values())
-            paths[nows.keys()[k]] = nows.values()[k]
-    return paths.keys()[np.argmax(paths.values())]
-
-
 
 # >>> i = [0.2,0.2,0.3,0.3,0]
 # >>> dict(zip(['s','b','m','e'], i[:4]))
@@ -141,6 +115,7 @@ def simple_cut(s):
         return []
 
 not_cuts = re.compile(r'([\da-zA-Z ]+)|[。，、？！\.\?,!]')
+
 def cut_word(s):
     result = []
     j = 0
@@ -151,12 +126,11 @@ def cut_word(s):
     result.extend(simple_cut(s[j:]))
     return result
 
-
-
-print(cut_word('他来到了网易杭研大厦'))
-while True:
-    input_str = input()
-    print(cut_word(input_str))
+if __name__ == '__main__':
+    print(cut_word('他来到了网易杭研大厦'))
+    while True:
+        input_str = input()
+        print(cut_word(input_str))
 
 
 '''
