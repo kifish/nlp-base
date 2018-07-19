@@ -4,7 +4,6 @@ import json
 from tqdm import tqdm
 
 
-
 pure_texts = []
 pure_tags = []
 stops = u'，。！？；、：,\.!\?;:\n'
