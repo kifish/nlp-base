@@ -32,6 +32,11 @@ def viterbi(nodes,trans_prob = trans_prob):
                 pre_node_label = path[-1]
                 if pre_node_label + label in trans_prob.keys():
                     # 把概率相乘等价地转化为相加
+
+                    # if nodes[node_idx][label] == float('-inf'):
+                    #     # print(np.log(10 ** (-10)))
+                    #     # -23.025850929940457
+                    #     nodes[node_idx][label] = -23.02
                     nows[path+label]= paths_[path]+trans_prob[path[-1]+label]+nodes[node_idx][label]
             k = np.argmax(list(nows.values()))
             paths[list(nows.keys())[k]] = list(nows.values())[k]
