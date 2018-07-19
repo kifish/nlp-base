@@ -6,3 +6,4 @@ keras-base                2.2.0                    py36_0
 keras-preprocessing       1.0.1                    py36_0
 numpy                     1.14.0           py36h4a99626_1
 scipy                     1.0.0            py36h1260518_0
+tqdm 4.23.4
