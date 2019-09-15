@@ -46,7 +46,9 @@ def hmm_cut(s):
     # j为字标记为i的所有字的list
     #j[t]表示标记为i中 t字出现的次数
     #log_total[i] 表示 标记为i的 所有字的出现总个数并取log
-    # 为什么是这两个数相除? 待理解
+    # 分母为标记i出现的总次数
+    # 分子为该字t的隐状态是标记i的次数
+    # log相减即相除
     nodes = [{i:log(j[t]+1)-log_total[i] for i,j in hmm_model.iteritems()} for t in s]
     # 获得每个字对应的标记
     tags = viterbi(nodes)
